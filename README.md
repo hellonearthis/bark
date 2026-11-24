@@ -165,6 +165,37 @@ By default, `generate_audio` works well with around 13 seconds of spoken text. F
 python -m bark --text "Hello, my name is Suno." --output_filename "example.wav"
 ```
 
+## 🖥️ Bark Studio (Tauri v2 Desktop GUI)
+
+This fork includes **Bark Studio**, a local desktop GUI built with **Tauri v2 + React + TypeScript** and a persistent Python worker (`gui/python/bark_worker.py`) that keeps Bark models loaded in VRAM between generations.
+
+### Features
+- **Persistent CUDA/CPU Worker**: Models stay loaded in memory for fast repeat generations (with `weights_only=False` compatibility for PyTorch 2.6+).
+- **Speaker Context & Custom Notes**: Built-in speaker presets include language, version (`v1`/`v2`), and documented voice traits, plus editable personal voice notes saved locally.
+- **Expression Tag Chips**: One-click insertion for `[laughter]`, `[laughs]`, `[sighs]`, `[gasps]`, `[clears throat]`, `[music]`, `♪  ♪`, `[MAN]`, `[WOMAN]`, `—`, and `...`.
+- **Interactive Tooltips**: Hover/focus `?` tooltips explaining `Text Temperature`, `Waveform Temperature`, `Small Models`, `Offload to CPU`, and `.npz` voice prompt saving.
+- **Persistent JSON Database**: Every generated `.wav` clip, prompt, preset, and temperature configuration is saved to `outputs/generations.json` with in-app playback, prompt restoration, and Explorer reveal.
+
+### Quick Start (Windows + NVIDIA GPU)
+
+1. **Create Python environment & install Bark**:
+   ```pwsh
+   uv venv
+   uv pip install torch --index-url https://download.pytorch.org/whl/cu128
+   uv pip install -e .
+   ```
+2. **Install GUI dependencies**:
+   ```pwsh
+   cd gui
+   npm install
+   cd ..
+   ```
+3. **Launch or Build**:
+   - Dev mode: `.\start-gui.ps1`
+   - Release build: `.\build-gui.ps1`
+
+See [gui/README.md](gui/README.md) for architecture details.
+
 ## 💻 Installation
 *‼️ CAUTION ‼️ Do NOT use `pip install bark`. It installs a different package, which is not managed by Suno.*
 ```bash
